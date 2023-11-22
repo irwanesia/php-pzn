@@ -1,0 +1,3 @@
+<?php
+
+$skorList = array();

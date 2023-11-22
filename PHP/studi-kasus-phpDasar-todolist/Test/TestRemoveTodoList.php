@@ -1,0 +1,14 @@
+<?php
+
+require_once "../Model/TodoList.php";
+require_once "../BusinessLogic/ShowTodoList.php";
+require_once "../BusinessLogic/RemoveTodoList.php";
+
+$todoList[1] = "Belajar PHP DASAR";
+$todoList[2] = "Belajar PHP OOP";
+$todoList[3] = "Belajar PHP DATABASE";
+$todoList[4] = "Belajar PHP JavaScript";
+
+showToDoList();
+removeToDoList(1);
+showToDoList();
