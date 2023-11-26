@@ -51,7 +51,7 @@ class CommentRepositoryImpl implements CommentRepository
     public function findAll() : array
     {
         $sql = "SELECT * FROM comments";
-        $statement = $this->connection->prepare($sql);
+        $statement = $this->connection->query($sql);
         
         $array = [];
 

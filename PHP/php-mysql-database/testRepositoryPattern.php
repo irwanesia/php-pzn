@@ -10,9 +10,18 @@ use Repository\CommentRepositoryImpl;
 $conn = getConnection();
 $repository = new CommentRepositoryImpl($conn);
 
-$comment = new Comment(email: 'irwan@test.com', comment: 'Hi');
-$newComment = $repository->insert($comment);
+// test insert
+// $comment = new Comment(email: 'ucok@test.com', comment: 'Hi Ucok');
+// $newComment = $repository->insert($comment);
 
-var_dump($newComment->getId());
+// var_dump($newComment->getId());
+
+// test findById
+// $comment = $repository->findById(13);
+// var_dump($comment);
+
+// test findAll
+$comments = $repository->findAll();
+var_dump($comments);
 
 $conn = null;
