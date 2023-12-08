@@ -2,11 +2,11 @@
 
 namespace Repository;
 
-use Entity\Standing;
+use Entity\Standings;
 
 interface StandingRepository {
     
-    function save(standing $Standing): void;
+    function save(standings $Standing): void;
 
     function remove(int $number): bool;
 
@@ -25,7 +25,7 @@ class StandingRepositoryImpl implements StandingRepository
         $this->connection = $connection;
     }
 
-    function save(Standing $Standing): void
+    function save(Standings $Standing): void
     {
         // ? prepere statment untuk menghindari sql injection
         $sql = "INSERT INTO Standing(todo) Value (?)";
