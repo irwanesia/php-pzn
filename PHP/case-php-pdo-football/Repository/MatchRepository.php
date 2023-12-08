@@ -28,7 +28,7 @@ class MatchRepositoryImpl implements MatchRepository
     function save(Matchs $match): void
     {
         // ? prepere statment untuk menghindari sql injection
-        $sql = "INSERT INTO match(id_team_home, id_team_away, skor_team_home, id_team_away) Value (?,?,?,?)";
+        $sql = "INSERT INTO `match`(id_team_home, id_team_away, skor_team_home, id_team_away) Value (?,?,?,?)";
         $statement = $this->connection->prepare($sql);
         $statement->execute([$match->getTimHome(), $match->getTimAway(), $match->getSkorTimHome(), $match->getSkorTimAway()]);
     }
@@ -37,7 +37,7 @@ class MatchRepositoryImpl implements MatchRepository
     {
         // karena kembaliannya boolean maka terlabih dahulu dilakukan pengecekan
         // select dulu apakah ada id yg akan di hapus, 
-        $sql = "SELECT id_match FROM match WHERE id_match = ?";
+        $sql = "SELECT id_match FROM `match` WHERE id_match = ?";
         $statement = $this->connection->prepare($sql);
         $statement->execute([$number]);
 
@@ -45,7 +45,7 @@ class MatchRepositoryImpl implements MatchRepository
         if($statement->fetch()) {
             // match ada ada
             // lakukan delete dan kembalikan nilai truenya
-            $sql = "DELETE FROM match WHERE id_match = ?";
+            $sql = "DELETE FROM `match` WHERE id_match = ?";
             $statement = $this->connection->prepare($sql);
             $statement->execute([$number]);
 
@@ -59,8 +59,27 @@ class MatchRepositoryImpl implements MatchRepository
     function findAll(): array
     {
 
-        $sql = "SELECT id_match, id_team_home, id_team_away, skor_team_home, skor_team_away FROM match";
-        $statement = $this->connection->prepare($sql);
+        // $query = <<<SQL 
+        // SELECT
+        //     home.nama_tim AS tim_home,
+        //     away.nama_tim AS tim_away,
+        //     `match`.*
+        // FROM
+        //     `match`
+        // JOIN team AS home ON match.id_team_home = home.id_tim
+        // JOIN team AS away ON match.id_team_away = away.id_tim;
+        // SQL;
+
+        $query = "SELECT
+            home.nama_tim AS tim_home,
+            away.nama_tim AS tim_away,
+            `match`.*
+        FROM
+            `match`
+        JOIN team AS home ON match.id_team_home = home.id_tim
+        JOIN team AS away ON match.id_team_away = away.id_tim";
+
+        $statement = $this->connection->prepare($query);
         $statement->execute();
 
         $result = [];
@@ -68,8 +87,8 @@ class MatchRepositoryImpl implements MatchRepository
         foreach($statement as $row){
             $match = new Matchs();
             $match->setIdMatch($row['id_match']);
-            $match->setTimHome($row['id_team_home']);
-            $match->setTimAway($row['id_team_away']);
+            $match->setTimHome($row['tim_home']);
+            $match->setTimAway($row['tim_away']);
             $match->setSkorTimHome($row['skor_team_home']);
             $match->setSkorTimAway($row['skor_team_away']);
             $result[] = $match;

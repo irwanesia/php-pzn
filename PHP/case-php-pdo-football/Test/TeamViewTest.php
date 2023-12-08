@@ -1,33 +1,32 @@
 <?php
 
-require_once __DIR__ . "/../Entity/Todolist.php";
-require_once __DIR__ . "/../Repository/TodolistRepository.php";
-require_once __DIR__ . "/../Service/TodolistService.php";
-require_once __DIR__ . "/../View/TodolistView.php";
+require_once __DIR__ . "/../Entity/Team.php";
+require_once __DIR__ . "/../Repository/TeamRepository.php";
+require_once __DIR__ . "/../Service/TeamService.php";
+require_once __DIR__ . "/../Service/HomeService.php";
+require_once __DIR__ . "/../View/TeamView.php";
 require_once __DIR__ . "/../Helper/InputHelper.php";
 require_once __DIR__ . "/../Config/Database.php";
 
-use \Entity\Todolist;
-use \Repository\TodolistRepositoryImpl;
-use \Service\TodolistServiceImpl;
-use \View\TodolistView;
+use \Entity\Team;
+use \Repository\TeamRepositoryImpl;
+use \Service\TeamServiceImpl;
+use \Service\HomeServiceImpl;
+use \View\TeamView;
 
 
-function testViewShowTodolist(): void
+function testViewShowTeam(): void
 {
     $connection = \Config\Database::getConnection();
-    $todolistRepository = new TodolistRepositoryImpl($connection);
-    $todolistService = new TodolistServiceImpl($todolistRepository);
-    $todolistView = new TodolistView($todolistService);
+    $teamRepository = new TeamRepositoryImpl($connection);
+    $teamService = new TeamServiceImpl($teamRepository);
+    $homeService = new HomeServiceImpl();
+    $teamView = new TeamView($teamService, $homeService);
 
-    $todolistService->addTodolist("Belajar PHP");
-    $todolistService->addTodolist("Belajar PHP OOP");
-    $todolistService->addTodolist("Belajar Database");
-
-    $todolistView->showTodolist();
+    $teamView->showTeam();
 }
 
-testViewShowTodolist();
+testViewShowTeam();
 
 // function testViewAddTodolist(): void
 // {

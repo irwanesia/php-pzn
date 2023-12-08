@@ -2,11 +2,11 @@
 
 namespace Repository;
 
-use Entity\Todolist;
+use Entity\Standing;
 
-interface TodolistRepository {
+interface StandingRepository {
     
-    function save(Todolist $todolist): void;
+    function save(standing $Standing): void;
 
     function remove(int $number): bool;
 
@@ -14,9 +14,9 @@ interface TodolistRepository {
 
 }
 
-class TodolistRepositoryImpl implements TodolistRepository
+class StandingRepositoryImpl implements StandingRepository
 {
-    public array $todolist = array();
+    public array $Standing = array();
 
     private \PDO $connection;
 
@@ -25,62 +25,62 @@ class TodolistRepositoryImpl implements TodolistRepository
         $this->connection = $connection;
     }
 
-    function save(Todolist $todolist): void
+    function save(Standing $Standing): void
     {
         // ? prepere statment untuk menghindari sql injection
-        $sql = "INSERT INTO todolist(todo) Value (?)";
+        $sql = "INSERT INTO Standing(todo) Value (?)";
         $statement = $this->connection->prepare($sql);
-        $statement->execute([$todolist->getTodo()]);
+        $statement->execute([$Standing->getTodo()]);
     }
 
     function remove(int $number): bool
     {
         // karena kembaliannya boolean maka terlabih dahulu dilakukan pengecekan
         // select dulu apakah ada id yg akan di hapus, 
-        $sql = "SELECT id FROM todolist WHERE id = ?";
+        $sql = "SELECT id FROM Standing WHERE id = ?";
         $statement = $this->connection->prepare($sql);
         $statement->execute([$number]);
 
         // jika ada 
         if($statement->fetch()) {
-            // todolist ada
+            // Standing ada
             // lakukan delete dan kembalikan nilai truenya
-            $sql = "DELETE FROM todolist WHERE id = ?";
+            $sql = "DELETE FROM Standing WHERE id = ?";
             $statement = $this->connection->prepare($sql);
             $statement->execute([$number]);
 
             return true;
         }else{
-            // todolist tidak ada
+            // Standing tidak ada
             return false;
         }
     }
 
     function findAll(): array
     {
-        // $sql = "SELECT * FROM todolist";
+        // $sql = "SELECT * FROM Standing";
         // $statement = $this->connection->query($sql);
 
         // $array = [];
 
         // while ($row = $statement->fetch()) {
-        //     $array[] = new Todolist(
+        //     $array[] = new Standing(
         //         todo: $row["todo"],
         //     );
         // }
         // return $array;
 
-        $sql = "SELECT id, todo FROM todolist";
+        $sql = "SELECT id, todo FROM Standing";
         $statement = $this->connection->prepare($sql);
         $statement->execute();
 
         $result = [];
 
         foreach($statement as $row){
-            $todolist = new Todolist();
-            $todolist->setId($row['id']);
-            $todolist->setTodo($row['todo']);
-            $result[] = $todolist;
+            $Standing = new Standing();
+            $Standing->setId($row['id']);
+            $Standing->setTodo($row['todo']);
+            $result[] = $Standing;
         }
 
         return $result;

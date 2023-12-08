@@ -8,12 +8,12 @@ use Service\HomeService;
 use Service\TeamService;
 use Service\MatchService;
 
-class MenuView
+class HomeView
 {
     public function __construct(private HomeService $homeService, 
                                 private TeamService $teamService, 
                                 // private KlasemenService $klasemenService, 
-                                private MatchService $pertandinganService)
+                                private MatchService $matchService)
     {
 
     }
@@ -24,17 +24,17 @@ class MenuView
             $this->homeService->showMenuHome();
 
             echo "MENU APLIKASI FOOTBALL" . PHP_EOL;
-            echo "1. Data Klub". PHP_EOL;
-            echo "2. Data Pertandingan". PHP_EOL;
-            echo "3. Klasemen". PHP_EOL;
-            echo "X. Keluar". PHP_EOL;
+            echo "1. MENU DATA KLUB". PHP_EOL;
+            echo "2. MENU MATCH". PHP_EOL;
+            echo "3. MENU KLASEMEN". PHP_EOL;
+            echo "X. LOGOUT". PHP_EOL;
 
             $pilihan = InputHelper::input("Pilih");
             
             if($pilihan == "1"){
                 $this->teamService->showTeam();
             }else if($pilihan == "2"){
-                $this->pertandinganService->showMatch();
+                $this->matchService->showMatch();
             }else if($pilihan == "3"){
                 // $this->klasemenService->showKlasemen();
             }else if($pilihan == "x"){

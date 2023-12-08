@@ -1,13 +1,14 @@
 <?php
 
-use Entity\Team;
-use Service\TeamServiceImpl;
-use Repository\TeamRepositoryImpl;
-
 require_once __DIR__ . "/../Entity/Team.php";
 require_once __DIR__ . "/../Repository/TeamRepository.php";
 require_once __DIR__ . "/../Service/TeamService.php";
 require_once __DIR__ . "/../Config/Database.php";
+
+use Entity\Team;
+use Service\TeamServiceImpl;
+use Repository\TeamRepositoryImpl;
+
 
 function testShowTeam(): void
 {

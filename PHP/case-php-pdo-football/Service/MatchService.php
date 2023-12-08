@@ -26,7 +26,7 @@ class MatchServiceImpl implements MatchService
         echo "Match Day". PHP_EOL;
         $match = $this->matchRepository->findAll();
         foreach($match as $number => $value){
-            echo $number+1 . $value->getTimHome() ."(". $value->getSkorTimHome() .") - "."(". $value->getSkorTimAway() .") - ". $value->getTimAway(). PHP_EOL;
+            echo $number+1 .". ". $value->getTimHome() ." (". $value->getSkorTimHome() .") - "."(". $value->getSkorTimAway() .") ". $value->getTimAway(). PHP_EOL;
         }
     }
 
