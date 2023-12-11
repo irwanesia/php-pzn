@@ -28,9 +28,23 @@ class MatchRepositoryImpl implements MatchRepository
     function save(Matchs $match): void
     {
         // ? prepere statment untuk menghindari sql injection
-        $sql = "INSERT INTO `match`(id_team_home, id_team_away, skor_team_home, id_team_away) Value (?,?,?,?)";
+        $sql = "INSERT INTO `match`(id_team_home, id_team_away, skor_team_home, skor_team_away) Value (?,?,?,?)";
         $statement = $this->connection->prepare($sql);
         $statement->execute([$match->getTimHome(), $match->getTimAway(), $match->getSkorTimHome(), $match->getSkorTimAway()]);
+
+        // query untuk memasukan nilai pertandingan ke klasemen
+        // $tim1 = $match->getSkorTimHome();
+        // // buat query insert 
+        // $queryTimHome = "INSERT INTO standing (id_tim) VALUES(:tim)";
+        // $stmt = $this->connection->prepare($queryTimHome);
+        // $stmt->bindParam(':tim', $tim1);
+        // $stmt->execute();
+
+        // $tim2 = $match->getSkorTimAway();
+        // $queryTimAway = "INSERT INTO standing (id_tim) VALUES(:tim)";
+        // $stmnt = $this->connection->prepare($queryTimAway);
+        // $stmnt->bindParam(':tim', $tim2);
+        // $stmnt->execute();
     }
 
     function remove(int $number): bool

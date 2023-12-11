@@ -55,7 +55,7 @@ class Standings
 
     public function getDraw(): int
     {
-
+        return $this->draw;
     }
 
     public function setDraw(int $draw): void

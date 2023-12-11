@@ -4,12 +4,13 @@ namespace Service;
 
 use Entity\Matchs;
 use Repository\MatchRepository;
+// use Repository\TeamRepository;
 
 interface MatchService 
 {
     function showMatch(): void;
 
-    function addMatch(string $timHome, string $timAway, int $skorTimHome, int $skorTimAway): void;
+    function addMatch(string $tim1, string $tim2, int $skorTimHome, int $skorTimAway): void;
 
     function removeMatch(int $number): void;
 }
@@ -30,9 +31,9 @@ class MatchServiceImpl implements MatchService
         }
     }
 
-    function addMatch(string $timHome, string $timAway, int $skorTimHome, int $skorTimAway): void
+    function addMatch(string $tim1, string $tim2, int $skorTimHome, int $skorTimAway): void
     {
-        $match = new Matchs($timHome, $timAway, $skorTimHome, $skorTimAway);
+        $match = new Matchs($tim1, $tim2, $skorTimHome, $skorTimAway);
         $this->matchRepository->save($match);
         echo "SUKSES MENAMBAH PERTANDINGAN". PHP_EOL;
     }

@@ -17,18 +17,16 @@ function testShowMatch(): void
 
 }
 
-// function testAddMatch(): void
-// {
-//     $connection = \Config\Database::getConnection();
-//     $matchRepository = new MatchRepositoryImpl($connection);
+function testAddMatch(): void
+{
+    $connection = \Config\Database::getConnection();
+    $matchRepository = new MatchRepositoryImpl($connection);
 
-//     $matchService = new MatchServiceImpl($matchRepository);
-//     $matchService->addMatch();
-//     $matchService->addMatch();
-//     $matchService->addMatch();
+    $matchService = new MatchServiceImpl($matchRepository);
+    $matchService->addMatch(7, 4, 3, 0);
 
-//     // $todolistService->showTodolist();
-// }
+    // $todolistService->showTodolist();
+}
 
 // function testRemoveTodolist(): void
 // {
@@ -45,6 +43,6 @@ function testShowMatch(): void
 
 // }
 
-// testAddTodolist();
+testAddMatch();
 testShowMatch();
 // testRemoveTodolist();

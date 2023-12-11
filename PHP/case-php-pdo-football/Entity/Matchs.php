@@ -12,8 +12,8 @@ class Matchs
 
     public function __construct(string $timHome="", string $timAway="", int $skorTimHome=0, int $skorTimAway=0)
     {
-        $this->$timHome = $timHome;
-        $this->$timAway = $timAway;
+        $this->timHome = $timHome;
+        $this->timAway = $timAway;
         $this->skorTimHome = $skorTimHome;
         $this->skorTimAway = $skorTimAway;
     }
@@ -58,7 +58,7 @@ class Matchs
         $this->skorTimHome = $skorTimHome;
     }
 
-    public function getSkorTimAway(): string
+    public function getSkorTimAway(): int
     {
         return $this->skorTimAway;
     }
