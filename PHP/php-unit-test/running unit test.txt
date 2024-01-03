@@ -1,0 +1,9 @@
+// perhatikan lagi di folder mana
+ketik vendor/bin/phpunit namaFolderTest/namaClassTest.php
+
+perintah di atas menjalankan semua metode yg ada di namaClassTest.php 
+
+jika ingin hanya menjalankan unit test hanya untuk 1 metode 
+gunakan perintah berikut
+
+ketik vendor/bin/phpunit --filter 'namaClassTest::namaMethod' namaFolderTest/namaClassTest.php

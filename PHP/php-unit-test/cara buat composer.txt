@@ -1,0 +1,15 @@
+composer init 
+nama paket
+deskripsi
+type project 
+
+skip skip yes 
+
+setelah composer.json terbuat
+
+terminal :
+composer install 
+composer update 
+composer dump-autoload
+
+selesai
