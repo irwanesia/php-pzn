@@ -18,6 +18,14 @@ class CounterFixtureTest extends TestCase
         echo "Membuat Counter". PHP_EOL;
     }
 
+    // 13. penggunaan Incomplete Test
+    // fungsinya untuk memberi tau jika unit test belum complete
+    public function testIncrement()
+    {
+        self::assertEquals(0, $this->counter->getCounter());
+        self::markTestIncomplete("TODO do counter again");
+    }
+
     public function testCounter()
     {
         $this->counter->increment();
