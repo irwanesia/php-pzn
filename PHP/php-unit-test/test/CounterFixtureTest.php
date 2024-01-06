@@ -26,6 +26,43 @@ class CounterFixtureTest extends TestCase
         self::markTestIncomplete("TODO do counter again");
     }
 
+    // 14. Skip Test
+    // jika ingin menskip dulu unit test nya
+    
+    /**
+     * @test
+     */
+    public function testSkip()
+    {
+        self::markTestSkipped("masih ada error yang bingung");
+
+        // ketika melakukan skip test, kode yang di bawah ini tidak akan di eksekusi
+        // sama dengan pengggunaan test incomplete
+        $this->counter->increment();
+        self::assertEquals(1, $this->counter->getCounter());
+    }
+
+    // SKIP TEST bisa menggunakan kondisi, mnisal jika OS nya linux, pHP versinya berapa
+    // versi librarynya berapa, dan lain lain.
+
+    /**
+     * @requires OSFAMILY Linux
+     */
+    public function testOnlyLinux()
+    {
+        self::assertTrue(true, "Only in linux");
+    }
+
+    // atau skip dengan kombinasi kondisi
+    /**
+     * @requires PHP >= 8
+     * @requires OSFAMILY Linux
+     */
+    public function testPHP8()
+    {
+        self::assertTrue(true, "Only for PHP 8");
+    }
+
     public function testCounter()
     {
         $this->counter->increment();
