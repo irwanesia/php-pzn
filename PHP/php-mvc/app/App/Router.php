@@ -1,7 +1,6 @@
-<?php 
+<?php
 
-namespace Codeir\BelajarPhpMvc;
-
+namespace Codeir\BelajarPhpMvc\App;
 
 class Router
 {
@@ -19,25 +18,27 @@ class Router
 
     public static function run(): void
     {
-        // buat default path infonya
         $path = "/";
-
-        // cek isset (jika ada path_info)
-        if(isset($_SERVER['PATH_INFO'])){
+        if (isset($_SERVER['PATH_INFO'])) {
             $path = $_SERVER['PATH_INFO'];
         }
 
-        // ambil data request method nya (get/post/delete etc)
         $method = $_SERVER['REQUEST_METHOD'];
 
-        foreach(self::$routes as $route){
-            if($path == $route['path'] && $method == $route['method']){
-                echo "Controller : " . $route['controller'] . ', Function : ' . $route['function'];
+        foreach (self::$routes as $route) {
+            if ($route['path'] == $path && $method == $route['method']) {
+                // echo 'Controller : ' . $route['controller'] . '<br>';
+                // echo 'Function : ' . $route['function'];
+
+                $function = $route['function'];
+
+                $controller = new $route['controller'];
+                $controller->$function();
                 return;
             }
         }
 
-        http_response_code(400);
+        http_response_code(404);
         echo 'CONTROLLER NOT FOUND';
     }
 }
