@@ -6,13 +6,18 @@ class Router
 {
     private static array $routes = [];
 
-    public static function add(string $method, string $path, string $controller, string $function): void
+    public static function add(string $method, 
+                               string $path, 
+                               string $controller, 
+                               string $function,
+                               array $middlewares = []): void
     {
         self::$routes[] = [
             'method' => $method,
             'path' => $path,
             'controller' => $controller,
             'function' => $function,
+            'middleware' => $middlewares,
         ];
     }
 
@@ -26,14 +31,34 @@ class Router
         $method = $_SERVER['REQUEST_METHOD'];
 
         foreach (self::$routes as $route) {
-            if ($route['path'] == $path && $method == $route['method']) {
+            // 3.
+            // buat path route dengan regex
+            // buat pattern terlebih dahulu
+            $pattern = "#^" . $route['path'] . "$#";
+            if (preg_match($pattern, $path, $variables) && $method == $route['method']) {
+                // 1.
                 // echo 'Controller : ' . $route['controller'] . '<br>';
                 // echo 'Function : ' . $route['function'];
 
+                // 11.
+                // call middleware
+                foreach($route['middleware'] as $middleware){
+                    $instance = new $middleware;
+                    $instance->before();
+                }
+
+                // 2.
                 $function = $route['function'];
 
                 $controller = new $route['controller'];
-                $controller->$function();
+                // $controller->$function();
+
+                // 3.
+                // panggilnya menggunakan call_user_func_array dikarenakan datanya array
+                // hapus data pertama dahulu
+                array_shift($variables);
+                call_user_func_array([$controller, $function], $variables);
+                
                 return;
             }
         }
